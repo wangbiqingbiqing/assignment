@@ -61,6 +61,18 @@ const styles = theme => ({
 })
 
 class HeaderBar extends Component {
+  constructor(props){
+    super(props);
+    this.handleKeyUp = this.handleKeyUp.bind(this);
+  }
+
+  handleKeyUp(event) {
+    if (event.keyCode === 13) {
+      alert(event.target.value);
+
+    }
+  };
+
   render() {
     const {classes} = this.props;
     let text= this.props.isLoggedIn;
@@ -70,7 +82,7 @@ class HeaderBar extends Component {
           <img className={classes.image} src={logo} alt="TeamSpirit"/>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
-              <Search/>
+              <Search onClick={this.handleClick}/>
             </div>
             <InputBase
               placeholder="Search…"
@@ -78,6 +90,7 @@ class HeaderBar extends Component {
                 root: classes.inputRoot,
                 input: classes.inputInput,
               }}
+              onKeyDown={this.handleKeyUp}
             />
           </div>
           {
