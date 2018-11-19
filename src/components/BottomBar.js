@@ -111,6 +111,7 @@ class BottomBar extends Component {
     this.setState({
       playMode: nextMode,
     })
+    this.props.handleSwitchPlayMode(nextMode);
   }
 
   volumeChange(event, value) {

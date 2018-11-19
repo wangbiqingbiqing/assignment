@@ -1,6 +1,6 @@
 import connect from "react-redux/es/connect/connect";
 import {withRouter} from "react-router";
-import {playNextSong, playPreviousSong, turnOnPlayer, turnOffPlayer} from "../actions/actions";
+import {playNextSong, playPreviousSong, turnOnPlayer, turnOffPlayer, setPlayMode} from "../actions/actions";
 import BottomBar from "../components/BottomBar";
 
 const BottomBarCon = connect(
@@ -14,6 +14,7 @@ const BottomBarCon = connect(
     playPrevious: () => dispatch(playPreviousSong()),
     handleSwitchOn:()=>dispatch(turnOnPlayer()),
     handleSwitchOff:()=>dispatch(turnOffPlayer()),
+    handleSwitchPlayMode:(playMode)=>dispatch(setPlayMode(playMode)),
   })
 )(BottomBar);
 

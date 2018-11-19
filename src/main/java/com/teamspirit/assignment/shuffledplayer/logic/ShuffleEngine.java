@@ -5,12 +5,11 @@ import com.teamspirit.assignment.shuffledplayer.pojo.Song;
 public interface ShuffleEngine {
     Song[] setSongs(Song[] songs , String playMode);
 
-    Song getNextSong(String playMode, String songId);
+    Song getNextSong(String playMode, String songId, Boolean isModeChange);
 
-    //TODO refine response here with state whether can get
-    Song getPreviousSong(String playMode);
+    Song getPreviousSong(String playMode, String songId, Boolean isModeChange);
 
-    Song[] peekQueue(Integer peekNumber);
+    Song[] peekQueue(String songId);
 
     Song[] getPlayList(String listName);
 

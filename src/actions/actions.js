@@ -73,12 +73,21 @@ export function setListName(listName) {
   }
 }
 
+export const SET_PLAY_MODE = "SET_PLAY_MODE";
+
+export function setPlayMode(playMode){
+  return {
+    type:SET_PLAY_MODE,
+    playMode,
+  }
+}
+
 export function playNextSong() {
   return (dispatch, getState) => {
     const data = getState();
     const playMode = data.playMode;
     const songId = data.currentSong.songId;
-    return apiGetNextSong(playMode, songId)
+    return apiGetNextSong(playMode, songId, false)
       .then(response => {
         dispatch(setNext(response.data));
         if (!data.isPreviousEnabled) {
@@ -99,11 +108,12 @@ export function playPreviousSong() {
   return (dispatch, getState) => {
     const data = getState();
     const playMode = data.playMode;
-    return apiGetPreviousSong(playMode)
+    const songId = data.currentSong.songId;
+    return apiGetPreviousSong(playMode,songId, false)
       .then(response => {
         if (response.data) {
           dispatch(setPrevious(response.data));
-          if (!data.isTurnedOn()) {
+          if (!data.isTurnedOn) {
             dispatch(turnOnPlayer());
           }
         } else {
@@ -142,12 +152,29 @@ export function getPlaylist(listName) {
 
 }
 
-export function getPeekList(peekNum) {
+export function getPeekList(songId, listName,) {
 
 }
 
-export function playPlaylist(listName){
-
+export function playSonglist(listName){
+  return (dispatch, getState) => {
+    const data = getState();
+    const playMode = data.playMode;
+    // return apiGetPlayList(playMode,songId, false)
+    //   .then(response => {
+    //     if (response.data) {
+    //       dispatch(setPrevious(response.data));
+    //       if (!data.isTurnedOn) {
+    //         dispatch(turnOnPlayer());
+    //       }
+    //     } else {
+    //       dispatch(disableGetPrevious())
+    //     }
+    //   })
+    //   .catch(error =>
+    //     console.log(error)
+    //   );
+  }
 }
 
 
@@ -163,7 +190,7 @@ export function setLogin() {
   }
 }
 
-export const SET_LOG_OUT = 'SET_LOG_IN';
+export const SET_LOG_OUT = 'SET_LOG_OUT';
 
 export function setLogout() {
   return {
@@ -181,6 +208,5 @@ export function login(){
 export function logout(){
   return (dispatch) => {
     dispatch(setLogout());
-    dispatch(getPlayLists());
   }
 }

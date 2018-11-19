@@ -1,5 +1,5 @@
 import connect from "react-redux/es/connect/connect";
-import {getPeekList, playPlaylist} from "../actions/actions";
+import {getPeekList, playSonglist} from "../actions/actions";
 import PlayListPanel from "../components/PlayListPanel";
 
 const PlayListPanelCon = connect(
@@ -7,7 +7,7 @@ const PlayListPanelCon = connect(
     listName: state.listName,
   }),
   dispatch => ({
-    playPlaylist:(listName)=>dispatch(playPlaylist(listName)),
+    playPlaylist:(listName)=>dispatch(playSonglist(listName)),
   })
 )(PlayListPanel)
 export default PlayListPanelCon

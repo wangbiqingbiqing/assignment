@@ -17,11 +17,11 @@ class SongListTable extends Component {
       {songId:'7',songName: 'song2', artist: 'juno', time: '4:30'},
       {songId:'8',songName: 'song2', artist: 'juno', time: '4:30'},
       {songId:'9',songName: 'song2', artist: 'juno', time: '4:30'},
-      {songId:'2',songName: 'song2', artist: 'juno', time: '4:30'},];
+      {songId:'10',songName: 'song2', artist: 'juno', time: '4:30'},];
     let tableBody = [];
     listdata.forEach(song => {
-      let tableRow = Object.entries(song).map(([key, value]) => {return <TableCell>{value}</TableCell>});
-      tableBody.push(<TableRow>{tableRow}</TableRow>
+      let tableRow = Object.entries(song).map(([key, value]) => {return <TableCell key={value}>{value}</TableCell>});
+      tableBody.push(<TableRow key={song.songId}>{tableRow}</TableRow>
     )});
     return (
       <Table>

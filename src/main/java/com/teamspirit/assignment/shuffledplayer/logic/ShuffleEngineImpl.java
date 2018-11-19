@@ -5,28 +5,18 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayDeque;
 import java.util.Arrays;
-import java.util.Deque;
-import java.util.Queue;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @Slf4j
 public class ShuffleEngineImpl implements ShuffleEngine {
 
-    static final Song defaultSong = Song.builder().songId("demoSong").songName("TeamSpirit Song").artist("Staff")
-            .album("Demo album").lyrics("Lyrics").time("4:03")
-            .build();
     static final Song[] fixedPlayList = getSongs();
     static Song[] dynamicPlayList = fixedPlayList.clone();
-    static Queue<Song> queue = new ArrayDeque<Song>();
-    static Deque<Song> stack = new ArrayDeque<Song>();
     static String playMode = "shuffle";
-    static int peekMax = 5;
-    static int index = 0;
-    static String[] playLists = {"playList1","playList2","playList3"};
+    static int peekNum = dynamicPlayList.length;
+    static String[] playLists = { "play1ist1", "play1ist2", "play1ist3" };
 
     public static Song[] getSongs() {
         Song[] mock = new Song[10];
@@ -55,6 +45,7 @@ public class ShuffleEngineImpl implements ShuffleEngine {
         return list;
     }
 
+    //TODO is mode changed? check cannot same as current song
     @Override
     public Song[] setSongs(Song[] playList, String currentPlayMode) {
         int num = playList.length;
@@ -69,56 +60,62 @@ public class ShuffleEngineImpl implements ShuffleEngine {
         }
     }
 
-    private void setQueue(Queue<Song> queue, Song[] playList) {
+    private int getCurrentSongIndex(String songId, Song[] playList) {
         for (int i = 0; i < playList.length; i++) {
-            queue.offer(playList[i]);
+            if (playList[i].getSongId().equals(songId)) {
+                return i;
+            }
         }
+        return -1;
     }
 
     @Override
-    public Song getNextSong(String currentPlayMode, String songId) {
-        //TODO improve id here
-        if(songId.equals("demoSong")){
-            stack.add(defaultSong);
-        }else{
-            Song currentSong = fixedPlayList[Integer.valueOf(songId)];
-            stack.add(currentSong);
+    public Song getNextSong(String playMode, String songId, Boolean isModeChange) {
+        int index = getCurrentSongIndex(songId, dynamicPlayList);
+        if(index == -1){
+            dynamicPlayList = fixedPlayList.clone();
+            dynamicPlayList = setSongs(dynamicPlayList, playMode);
+            index =0;
         }
-
-        if (!ShuffleEngineImpl.playMode.equals(currentPlayMode)) {
-            queue.clear();
-            Song[] playList = setSongs(dynamicPlayList, currentPlayMode);
-            setQueue(queue, playList);
+        if (index == dynamicPlayList.length-1 ||isModeChange) {
+            dynamicPlayList=setSongs(dynamicPlayList, playMode);
+            index =0;
         }
-        if (queue.isEmpty()) {
-            Song[] playList = setSongs(dynamicPlayList, currentPlayMode);
-            setQueue(queue, playList);
-        }
-
-        return queue.remove();
+        index++;
+        return dynamicPlayList[index];
     }
 
     @Override
-    public Song getPreviousSong(String playMode) {
-        if (stack.isEmpty()) {
-            return null;
+    public Song getPreviousSong(String playMode, String songId, Boolean isModeChange) {
+        int index = getCurrentSongIndex(songId, dynamicPlayList);
+        if(index == -1){
+            dynamicPlayList= fixedPlayList.clone();
+            dynamicPlayList= setSongs(dynamicPlayList, playMode);
+            index =dynamicPlayList.length-1;
         }
-        //TODO add to queue first element
-        return stack.pop();
+        if (index == 0 || isModeChange) {
+            dynamicPlayList = setSongs(dynamicPlayList, playMode);
+            index = dynamicPlayList.length-1;
+        }
+        index--;
+        return dynamicPlayList[index];
     }
 
     @Override
-    public Song[] peekQueue(Integer peekNumber) {
-        return null;
+    public Song[] peekQueue(String songId) {
+
+        return dynamicPlayList;
     }
 
     @Override
     public Song[] getPlayList(String listName) {
+
         return fixedPlayList;
     }
 
     @Override
     public String[] getPlayLists() {
+
         return playLists;
     }
 }
