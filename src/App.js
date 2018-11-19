@@ -12,14 +12,34 @@ import SidePanelCon from "./containers/SidePanelCon";
 
 class App extends Component {
 
+  constructor(props){
+    super(props);
+    this.state={midGridHeight:window.innerHeight-128}
+  }
+  resetMidGridHeight = ()=>{
+    this.setState({midGridHeight: window.innerHeight-128});
+  }
+
+  componentDidMount() {
+    this.resetMidGridHeight();
+    window.addEventListener("resize", this.resetMidGridHeight.bind(this));
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.resetMidGridHeight.bind(this));
+  }
+
   render() {
+    let gridStyle = {
+      height: this.state.midGridHeight + 'px',
+    };
     return (
       <BrowserRouter >
       <Grid container>
         <Grid item xs={12}>
           <HeaderBarCon/>
         </Grid>
-        <Grid container>
+        <Grid container style = {gridStyle}>
           <Grid item xs={2}>
             <SidePanelCon />
           </Grid>

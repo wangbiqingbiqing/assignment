@@ -7,18 +7,20 @@ import SongListTable from "./SongListTable";
 
 const styles = theme => ({
   margin: {
-    marginTop: '5%'
+    marginTop: '64px',
+    height:'100%',
+
   }
 })
 
 class PeekListPanel extends Component {
-
   render() {
     const {classes} = this.props;
     return (
-      <React.Fragment>
+      <React.Fragment >
+        <div className={classes.margin}>
         <Grid container spacing={8} justify="center"
-              alignItems="center" className={classes.margin}>
+              alignItems="center"  >
           <Grid item xs={10} >
           <Typography variant="h5" gutterBottom>
             Play Queue
@@ -42,6 +44,7 @@ class PeekListPanel extends Component {
             </Grid>
           </Grid>
         </Grid>
+        </div>
       </React.Fragment>
     );
 

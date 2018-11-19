@@ -30,7 +30,7 @@ class SidePanel extends Component {
 
     return (
       <React.Fragment>
-        <div style={{height: '700px', borderRight: 'grey solid'}}>
+        <div style={{ height:'100%',borderRight: 'grey solid',marginTop:'64px'}}>
           <Typography align="center">
             PlayList
           </Typography>

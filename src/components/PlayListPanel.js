@@ -27,9 +27,9 @@ class PlayListPanel extends Component {
             </Typography>
           </Grid>
           <Grid item xs={10} >
-            <div>
               {/*{this.props.listName}*/}
               PlayList 1
+            <div style={{float:'right'}}>
               <IconButton color="inherit">
                 <PlaylistPlay onClick={this.props.playPlaylist}/>
               </IconButton>
