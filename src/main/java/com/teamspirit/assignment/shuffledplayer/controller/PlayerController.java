@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(EndPoint.API_V1)
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3001")
 public class PlayerController {
 
     private final ShuffleEngine shuffleEngine = new ShuffleEngineImpl();
@@ -39,7 +39,7 @@ public class PlayerController {
 
     @RequestMapping(value = EndPoint.PEEKLIST, method = RequestMethod.GET)
     public Song[] getPeekList(@RequestParam String songId) {
-        return shuffleEngine.peekQueue(songId);
+        return shuffleEngine.getPeekQueue(songId);
     }
 
 

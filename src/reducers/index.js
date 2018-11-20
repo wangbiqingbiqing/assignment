@@ -20,7 +20,7 @@ const defaultState = {
   playList:[DEMO_SONG],
   playMode: PLAY_MODE.SHUFFLE,
   isPlayModeChanged: false,
-  peekList:MOCK_SONGS,
+  peekList:[],
   isTurnedOn: false,
   isPreviousEnabled:false,
   currentSong:DEMO_SONG,
