@@ -9,7 +9,7 @@ public interface ShuffleEngine {
 
     Song getPreviousSong(String playMode, String songId, Boolean isModeChange);
 
-    Song[] peekQueue(String songId);
+    Song[] getPeekQueue(String songId);
 
     Song[] getPlayList(String listName);
 
