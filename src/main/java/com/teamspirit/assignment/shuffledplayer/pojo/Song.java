@@ -14,7 +14,6 @@ public class Song {
     private String songName;
     private String artist;
     private String album;
-    private String albumPicture;
     private String lyrics;
     private String time;
 

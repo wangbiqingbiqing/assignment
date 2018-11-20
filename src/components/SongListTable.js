@@ -4,28 +4,32 @@ import TableCell from "@material-ui/core/es/TableCell/TableCell";
 import TableHead from "@material-ui/core/es/TableHead/TableHead";
 import TableRow from "@material-ui/core/es/TableRow/TableRow";
 import React, {Component} from 'react';
+import {SONG_KEY} from "../constants/keys";
 
 class SongListTable extends Component {
 
   render() {
-    let listdata = [{songId:'1',songName: 'song1', artist: 'andreas', time: '2:30'},
-      {songId:'2',songName: 'song2', artist: 'juno', time: '4:30'},
-      {songId:'3',songName: 'song2', artist: 'juno', time: '4:30'},
-      {songId:'4',songName: 'song2', artist: 'juno', time: '4:30'},
-      {songId:'5',songName: 'song2', artist: 'juno', time: '4:30'},
-      {songId:'6',songName: 'song2', artist: 'juno', time: '4:30'},
-      {songId:'7',songName: 'song2', artist: 'juno', time: '4:30'},
-      {songId:'8',songName: 'song2', artist: 'juno', time: '4:30'},
-      {songId:'9',songName: 'song2', artist: 'juno', time: '4:30'},
-      {songId:'10',songName: 'song2', artist: 'juno', time: '4:30'},];
+
+    let listData = this.props.data;
     let tableBody = [];
-    listdata.forEach(song => {
-      let tableRow = Object.entries(song).map(([key, value]) => {return <TableCell key={value}>{value}</TableCell>});
-      tableBody.push(<TableRow key={song.songId}>{tableRow}</TableRow>
-    )});
+    let i =1;
+    listData.forEach(song => {
+      let tableRow = Object.entries(song).map(([key, value]) => {
+        if(key!==SONG_KEY.SONG_ID&&key!==SONG_KEY.LYRICS){
+        return <TableCell key={value}>{value}</TableCell>}
+      });
+      tableBody.push(<TableRow key={song.songId}><TableCell>{i}</TableCell>{tableRow}</TableRow>
+    )
+      i=i+1;
+    });
     return (
       <Table>
         <TableHead>
+          <TableCell>No.</TableCell>
+          <TableCell>{SONG_KEY.SONG_NAME}</TableCell>
+          <TableCell>{SONG_KEY.ARTIST}</TableCell>
+          <TableCell>{SONG_KEY.ALBUM}</TableCell>
+          <TableCell>{SONG_KEY.TIME}</TableCell>
         </TableHead>
         <TableBody>
           {tableBody}
