@@ -1,19 +1,16 @@
-import {apiGetNextSong, apiGetPreviousSong, apiGetPlayLists, apiGetPlayList} from "../logic/apiServices";
+import {
+  apiGetNextSong,
+  apiGetPreviousSong,
+  apiGetPlayLists,
+  apiGetPlayList,
+  apiGetPeekList
+} from "../logic/apiServices";
 
-export const SET_NEXT = 'SET_NEXT';
+export const SET_CURRENT_SONG = 'SET_CURRENT_SONG';
 
-export function setNext(song) {
+export function setCurrent(song) {
   return {
-    type: SET_NEXT,
-    song
-  }
-}
-
-export const SET_PREVIOUS = 'SET_PREVIOUS';
-
-export function setPrevious(song) {
-  return {
-    type: SET_PREVIOUS,
+    type: SET_CURRENT_SONG,
     song
   }
 }
@@ -82,6 +79,26 @@ export function setPlayMode(playMode){
   }
 }
 
+export const SET_PEEK_LIST = 'SET_PEEK_LIST';
+
+export function setPeekList(peekList){
+return {
+  type:SET_PEEK_LIST,
+  peekList,
+}
+}
+
+export function playNextSongAndUpdatePeekList(){
+  return (dispatch,getStete)=>{
+    Promise.all([playNextSong,getPeekList]).then(([nextSong,peekList])=>{
+      console.log(nextSong,peekList);
+      dispatch(setCurrent(nextSong));
+      dispatch(setPeekList(peekList));
+    })
+  }
+}
+
+
 export function playNextSong() {
   return (dispatch, getState) => {
     const data = getState();
@@ -89,14 +106,13 @@ export function playNextSong() {
     const songId = data.currentSong.songId;
     return apiGetNextSong(playMode, songId, false)
       .then(response => {
-        dispatch(setNext(response.data));
+        dispatch(setCurrent(response.data));
         if (!data.isPreviousEnabled) {
           dispatch(enableGetPrevious())
-        }
-        ;
+        };
         if (!data.isTurnedOn) {
           dispatch(turnOnPlayer());
-        }
+        };
       })
       .catch(error =>
         console.log(error)
@@ -112,7 +128,7 @@ export function playPreviousSong() {
     return apiGetPreviousSong(playMode,songId, false)
       .then(response => {
         if (response.data) {
-          dispatch(setPrevious(response.data));
+          dispatch(setCurrent(response.data));
           if (!data.isTurnedOn) {
             dispatch(turnOnPlayer());
           }
@@ -140,6 +156,7 @@ export function getPlayLists() {
 
 export function getPlaylist(listName) {
   return (dispatch) => {
+
     return apiGetPlayList(listName)
       .then(response => {
         dispatch(setPlaylist(response.data));
@@ -152,8 +169,18 @@ export function getPlaylist(listName) {
 
 }
 
-export function getPeekList(songId, listName,) {
-
+export function getPeekList() {
+  return (dispatch, getState) => {
+    const data = getState();
+    const songId = data.currentSong.songId;
+    return apiGetPeekList(songId)
+      .then(response => {
+          dispatch(setPeekList(response.data));
+      })
+      .catch(error =>
+        console.log(error)
+      );
+  }
 }
 
 export function playSonglist(listName){
@@ -163,7 +190,7 @@ export function playSonglist(listName){
     // return apiGetPlayList(playMode,songId, false)
     //   .then(response => {
     //     if (response.data) {
-    //       dispatch(setPrevious(response.data));
+    //       dispatch(setCurrent(response.data));
     //       if (!data.isTurnedOn) {
     //         dispatch(turnOnPlayer());
     //       }
@@ -177,10 +204,6 @@ export function playSonglist(listName){
   }
 }
 
-
-export function goToPeekPanel(){
-
-}
 
 export const SET_LOG_IN = 'SET_LOG_IN';
 
