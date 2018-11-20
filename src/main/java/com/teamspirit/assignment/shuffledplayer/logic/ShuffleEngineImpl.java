@@ -91,11 +91,11 @@ public class ShuffleEngineImpl implements ShuffleEngine {
         if(index == -1){
             dynamicPlayList= fixedPlayList.clone();
             dynamicPlayList= setSongs(dynamicPlayList, playMode);
-            index =dynamicPlayList.length-1;
+            index = 0;
         }
         if (index == 0 || isModeChange) {
             dynamicPlayList = setSongs(dynamicPlayList, playMode);
-            index = dynamicPlayList.length-1;
+            index = 0;
         }
         index--;
         return dynamicPlayList[index];
@@ -103,8 +103,9 @@ public class ShuffleEngineImpl implements ShuffleEngine {
 
     @Override
     public Song[] peekQueue(String songId) {
-
-        return dynamicPlayList;
+        int index = getCurrentSongIndex(songId, dynamicPlayList);
+        Song[] peekList = Arrays.copyOfRange(dynamicPlayList, index, dynamicPlayList.length-1);
+        return peekList;
     }
 
     @Override

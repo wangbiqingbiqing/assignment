@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(EndPoint.API_V1)
-@CrossOrigin(origins = "http://localhost:3001")
+@CrossOrigin(origins = "http://localhost:3000")
 public class PlayerController {
 
     private final ShuffleEngine shuffleEngine = new ShuffleEngineImpl();
