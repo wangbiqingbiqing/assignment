@@ -3,10 +3,10 @@ import IconButton from "@material-ui/core/es/IconButton/IconButton";
 import Paper from "@material-ui/core/es/Paper/Paper";
 import Typography from "@material-ui/core/es/Typography/Typography";
 import {withStyles} from "@material-ui/core/styles/index";
-import PlaylistPlay from '@material-ui/icons/PlaylistPlay';
 import React, {Component} from 'react';
 import Link from "react-router-dom/es/Link";
 import SongListTable from "./SongListTable";
+import Shuffle from '@material-ui/icons/Shuffle';
 
 const styles = theme => ({
   margin: {
@@ -45,7 +45,7 @@ class PlayListPanel extends Component {
             <div style={{float: 'right'}}>
               <IconButton color="inherit">
                 <Link to="/peeklist" style={{textDecoration: 'none'}}>
-                  <PlaylistPlay onClick={this.playPlaylist}/>
+                  <Shuffle onClick={this.playPlaylist}/>
                 </Link>
               </IconButton>
             </div>

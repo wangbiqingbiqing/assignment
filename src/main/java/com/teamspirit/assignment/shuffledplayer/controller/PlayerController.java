@@ -5,9 +5,11 @@ import com.teamspirit.assignment.shuffledplayer.logic.ShuffleEngine;
 import com.teamspirit.assignment.shuffledplayer.logic.ShuffleEngineImpl;
 import com.teamspirit.assignment.shuffledplayer.pojo.Song;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -17,14 +19,14 @@ public class PlayerController {
 
     private final ShuffleEngine shuffleEngine = new ShuffleEngineImpl();
 
-    @RequestMapping(value = EndPoint.NEXT_SONG, method = RequestMethod.GET)
-    public Song getNextSong(@RequestParam String songId) {
-        return shuffleEngine.getNextSong(songId);
+    @RequestMapping(value = EndPoint.NEXT_SONG, method = RequestMethod.POST)
+    public Song getNextSong(@RequestBody Song[] shuffledList,String songId) {
+        return shuffleEngine.getNextSong(songId,shuffledList);
     }
 
-    @RequestMapping(value = EndPoint.PREVIOUS_SONG, method = RequestMethod.GET)
-    public Song getPreviousSong(@RequestParam String songId) {
-        return shuffleEngine.getPreviousSong(songId);
+    @RequestMapping(value = EndPoint.PREVIOUS_SONG, method = RequestMethod.POST)
+    public Song getPreviousSong(@RequestBody Song[] shuffledList,String songId) {
+        return shuffleEngine.getPreviousSong(songId,shuffledList);
     }
 
     @RequestMapping(value = EndPoint.PLAYLISTS, method = RequestMethod.GET)
@@ -47,4 +49,8 @@ public class PlayerController {
         return shuffleEngine.getPeekListAfterSkip(skipSongId, currentSongId);
     }
 
+    @RequestMapping(value = EndPoint.RESET_SONG, method = RequestMethod.POST)
+    public Song[] resetPlayList(@RequestBody Song[] songList,String currentSongId) {
+        return shuffleEngine.setSongs(songList,currentSongId);
+    }
 }

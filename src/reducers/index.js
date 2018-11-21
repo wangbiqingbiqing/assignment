@@ -9,7 +9,7 @@ import {
   SET_LOG_IN,
   SET_LOG_OUT,
   SET_PEEK_LIST,
-  SET_CURRENT_SONG
+  SET_CURRENT_SONG, SET_SHUFFLE_LIST
 } from "../actions/actions";
 import {DEMO_SONG, DEFAULT_PLAYLISTS} from "../constants/states";
 
@@ -21,6 +21,7 @@ const defaultState = {
   currentSong: DEMO_SONG,
   isLoggedIn: false,
   playLists: DEFAULT_PLAYLISTS,
+  shuffleList:[],
 };
 
 export default function appData(state = defaultState, action) {
@@ -60,6 +61,11 @@ export default function appData(state = defaultState, action) {
         ...state,
         playList: action.playlist,
       };
+    case SET_SHUFFLE_LIST:
+      return{
+        ...state,
+        shuffleList:action.shuffleList,
+      }
     case SET_LOG_IN:
       return {
         ...state,

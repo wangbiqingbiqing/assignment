@@ -46,24 +46,29 @@ public class ShuffleEngineImpl implements ShuffleEngine {
     }
 
     @Override
-    public Song[] setSongs(Song[] playList) {
-        int num = playList.length;
+    /**
+     invalid shuffle case
+     1.two sequences are same
+     2.the end of current loop is same as the first of next loop when gonext
+     3.the first of current loop is same as the first of next loop when goprevious
+     */
+    public Song[] setSongs(Song[] playList, String checkId) {
         Song[] nextList = playList.clone();
         do {
             shuffleArray(nextList);
-        } while (Arrays.equals(playList, nextList) || playList[num - 1] == nextList[0]);
-        return nextList;
-
+        } while (Arrays.equals(playList, nextList) || nextList[0].getSongId() == checkId);
+        dynamicPlayList = nextList;
+        return dynamicPlayList;
     }
 
     @Override
-    public Song getNextSong(String songId) {
+    public Song getNextSong(String songId ,Song[] shuffledList) {
         int index = getCurrentSongIndex(songId, dynamicPlayList);
         if (index == -1) {
             index = 0;
         } else if (index == dynamicPlayList.length - 1) {
-            dynamicPlayList = fixedPlayList.clone();
-            dynamicPlayList = setSongs(dynamicPlayList);
+            dynamicPlayList = shuffledList;
+            dynamicPlayList = setSongs(dynamicPlayList,songId);
             index = 0;
         } else {
             index++;
@@ -72,13 +77,13 @@ public class ShuffleEngineImpl implements ShuffleEngine {
     }
 
     @Override
-    public Song getPreviousSong(String songId) {
+    public Song getPreviousSong(String songId,Song[] shuffledList) {
         int index = getCurrentSongIndex(songId, dynamicPlayList);
         if (index == -1) {
             index = 0;
         } else if (index == 0) {
-            dynamicPlayList = fixedPlayList.clone();
-            dynamicPlayList = setSongs(dynamicPlayList);
+            dynamicPlayList = shuffledList;
+            dynamicPlayList = setSongs(dynamicPlayList,dynamicPlayList[index].getSongId());
             index = 0;
         } else {
             index--;
@@ -110,7 +115,6 @@ public class ShuffleEngineImpl implements ShuffleEngine {
 
     @Override
     public Song[] getPlayList() {
-
         return fixedPlayList;
     }
 
@@ -126,7 +130,9 @@ public class ShuffleEngineImpl implements ShuffleEngine {
         int skipedIndex = getCurrentSongIndex(skipSongId, peekList);
         dynamicPlayList = (Song[])ArrayUtils.removeElement(peekList, peekList[skipedIndex]);
         int currentIndex = getCurrentSongIndex(currentSongId, fixedPlayList);
-        dynamicPlayList = (Song[])ArrayUtils.add(dynamicPlayList, 0, fixedPlayList[currentIndex]);
+        if (currentIndex != -1) {
+            dynamicPlayList = (Song[])ArrayUtils.add(dynamicPlayList, 0, fixedPlayList[currentIndex]);
+        }
         Song[] skippedQueue = getPeekQueue(currentSongId);
         skippedQueue = Arrays.copyOfRange(skippedQueue, 0, Math.min(peekNum, skippedQueue.length));
 

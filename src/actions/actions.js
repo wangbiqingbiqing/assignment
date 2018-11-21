@@ -1,10 +1,11 @@
+import {SONG_KEY} from "../constants/keys";
 import {
   apiGetNextSong,
   apiGetPreviousSong,
   apiGetPlayLists,
   apiGetPlayList,
   apiGetPeekList,
-  apiGetPeekListAfterSkip
+  apiGetPeekListAfterSkip, apiResetPlaylist
 } from "../logic/apiServices";
 
 export const SET_CURRENT_SONG = 'SET_CURRENT_SONG';
@@ -71,6 +72,14 @@ export function setPeekList(peekList) {
   }
 }
 
+export const SET_SHUFFLE_LIST = 'SET_SHUFFLE_LIST';
+export function setShuffleList(shuffleList){
+  return {
+    type:SET_SHUFFLE_LIST,
+    shuffleList,
+  }
+}
+
 export function playNextSongAndUpdatePeekList() {
   return (dispatch, getStete) => {
     Promise.all([dispatch(playNextSong())]).then(result => {
@@ -87,11 +96,45 @@ export function playPreviousSongAndUpdatePeekList() {
   }
 }
 
+export function resetSongListAndPlay(){
+  return (dispatch, getStete) => {
+    Promise.all([dispatch(resetSonglist())]).then(result => {
+      return dispatch(getPeekList());
+    });
+  }
+}
+
+export function resetSonglist(){
+  return (dispatch, getState) => {
+    const data = getState();
+    const songList = data.shuffleList.length===0?data.playList:data.shuffleList;
+    console.log(songList);
+    let currentSongId = data.currentSong[SONG_KEY.SONG_ID];
+    let songInList = false;
+    for(let i =0;i<songList.length;i++){
+      console.log(songList[i]);
+      let song = songList[i];
+      Object.entries(song).map(([key, value]) =>{if(song[SONG_KEY.SONG_ID]===currentSongId){return songInList=true}})
+    }
+    currentSongId=songInList?currentSongId:songList[1][SONG_KEY.SONG_ID];
+    return apiResetPlaylist(songList,currentSongId)
+      .then(response => {
+        let currentSong = response.data[0];
+        dispatch(setCurrent(currentSong));
+        dispatch(setShuffleList(response.data))
+      })
+      .catch(error =>
+        console.log(error)
+      );
+  }
+}
+
 export function playNextSong() {
   return (dispatch, getState) => {
     const data = getState();
     const songId = data.currentSong.songId;
-    return apiGetNextSong(songId)
+    const shuffledList = data.shuffleList;
+    return apiGetNextSong(songId,shuffledList)
       .then(response => {
         dispatch(setCurrent(response.data));
         if (!data.isPreviousEnabled) {
@@ -111,7 +154,8 @@ export function playPreviousSong() {
   return (dispatch, getState) => {
     const data = getState();
     const songId = data.currentSong.songId;
-    return apiGetPreviousSong(songId)
+    const shuffledList = data.shuffleList;
+    return apiGetPreviousSong(songId,shuffledList)
       .then(response => {
         if (response.data) {
           dispatch(setCurrent(response.data));
