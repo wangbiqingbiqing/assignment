@@ -67,8 +67,6 @@ class HeaderBar extends Component {
 
   handleKeyUp(event) {
     if (event.keyCode === 13) {
-      alert(event.target.value);
-
     }
   };
 

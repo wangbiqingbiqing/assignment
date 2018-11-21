@@ -15,6 +15,17 @@ const styles = theme => ({
 })
 
 class PlayListPanel extends Component {
+ constructor(props){
+   super(props);
+   this.playPlaylist=this.playPlaylist.bind(this);
+ }
+
+  playPlaylist() {
+    if (this.props.isLoggedIn) {
+      this.props.playPlaylist();
+    }
+
+  }
 
   render() {
     console.log(this.props.playList.length);

@@ -4,6 +4,7 @@ import PlayListPanel from "../components/PlayListPanel";
 
 const PlayListPanelCon = connect(
   state => ({
+    isLoggedIn:state.isLoggedIn,
     playList: state.playList,
   }),
   dispatch => ({

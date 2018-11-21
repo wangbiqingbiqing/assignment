@@ -21,7 +21,6 @@ const defaultState = {
   currentSong:DEMO_SONG,
   isLoggedIn:false,
   playLists:DEFAULT_PLAYLISTS,
-  listName:'',
 };
 
 export default function appData(state = defaultState, action) {
