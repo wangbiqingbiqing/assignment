@@ -35,11 +35,13 @@ class SongListTable extends Component {
     return (
       <Table>
         <TableHead>
+          <TableRow>
           <TableCell>No.</TableCell>
           <TableCell>{SONG_KEY.SONG_NAME}</TableCell>
           <TableCell>{SONG_KEY.ARTIST}</TableCell>
           <TableCell>{SONG_KEY.ALBUM}</TableCell>
           <TableCell>{SONG_KEY.TIME}</TableCell>
+          </TableRow>
         </TableHead>
         <TableBody>
           {tableBody}
