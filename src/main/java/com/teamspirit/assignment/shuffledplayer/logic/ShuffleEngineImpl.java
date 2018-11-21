@@ -7,8 +7,6 @@ import org.apache.commons.lang.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -19,8 +17,7 @@ public class ShuffleEngineImpl implements ShuffleEngine {
     static Song[] dynamicPlayList = fixedPlayList.clone();
     static String playMode = "shuffle";
     static final int peekNum = 5;
-    static String[] playLists = { "play1ist1", "play1ist2", "play1ist3" };
-    //static Map<String, Song[] > mock = new HashMap<>();
+    static String[] playLists = { "playlist" };
 
 
     public static Song[] getSongs() {
@@ -126,7 +123,7 @@ public class ShuffleEngineImpl implements ShuffleEngine {
     }
 
     @Override
-    public Song[] getPlayList(String listName) {
+    public Song[] getPlayList() {
 
         return fixedPlayList;
     }

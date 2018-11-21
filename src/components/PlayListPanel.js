@@ -6,7 +6,6 @@ import {withStyles} from "@material-ui/core/styles/index";
 import PlaylistPlay from '@material-ui/icons/PlaylistPlay';
 import React, {Component} from 'react';
 import Link from "react-router-dom/es/Link";
-import Redirect from "react-router/es/Redirect";
 import SongListTable from "./SongListTable";
 
 const styles = theme => ({
@@ -47,8 +46,7 @@ class PlayListPanel extends Component {
             </Typography>
           </Grid>
           <Grid item xs={10} >
-              {/*{this.props.listName}*/}
-              PlayList 1
+
             <div style={{float:'right'}}>
               <IconButton color="inherit">
                 <Link to="/peeklist" style={{textDecoration: 'none'}}>

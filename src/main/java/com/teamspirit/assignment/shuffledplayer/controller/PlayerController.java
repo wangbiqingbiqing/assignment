@@ -33,8 +33,8 @@ public class PlayerController {
     }
 
     @RequestMapping(value = EndPoint.PLAYLIST, method = RequestMethod.GET)
-    public Song[] getPlayList(@RequestParam String listName) {
-        return shuffleEngine.getPlayList(listName);
+    public Song[] getPlayList() {
+        return shuffleEngine.getPlayList();
     }
 
     @RequestMapping(value = EndPoint.PEEKLIST, method = RequestMethod.GET)

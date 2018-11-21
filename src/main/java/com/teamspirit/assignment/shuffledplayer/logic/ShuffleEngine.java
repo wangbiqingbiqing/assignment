@@ -11,7 +11,7 @@ public interface ShuffleEngine {
 
     Song[] getPeekQueue(String songId);
 
-    Song[] getPlayList(String listName);
+    Song[] getPlayList();
 
     String[] getPlayLists();
 
