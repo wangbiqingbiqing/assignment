@@ -103,7 +103,7 @@ class HeaderBar extends Component {
                   <Button color="inherit" onClick={this.props.login}>LOGIN</Button>
                 </Link>
               </div>
-                }
+          }
         </Toolbar>
 
       </AppBar>

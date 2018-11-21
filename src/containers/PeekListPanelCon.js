@@ -4,13 +4,13 @@ import PeekListPanel from "../components/PeekListPanel";
 
 const PeekListPanelCon = connect(
   state => ({
-    currentSong:state.currentSong,
+    currentSong: state.currentSong,
     peekList: state.peekList,
-    isLoggedIn:state.isLoggedIn,
+    isLoggedIn: state.isLoggedIn,
   }),
   dispatch => ({
-    getPeekList:()=>dispatch(getPeekList()),
-    skipSong:(songId)=>dispatch(skipSong(songId)),
+    getPeekList: () => dispatch(getPeekList()),
+    skipSong: (songId) => dispatch(skipSong(songId)),
   })
 )(PeekListPanel)
 export default PeekListPanelCon

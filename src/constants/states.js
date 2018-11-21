@@ -1,4 +1,3 @@
-
 export const DEMO_SONG = {
   songId: 'demoSong',
   songName: 'demo Song',

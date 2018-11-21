@@ -14,9 +14,9 @@ class SongListTable extends Component {
     let displayNum = this.props.displayNum;
     console.log(displayNum, listData);
     let tableBody = [];
-    for(let j =1; j<= Math.min(displayNum,listData.length); j++){
-      let song = listData[j-1];
-      let tableRow =Object.entries(song).map(([key, value]) => {
+    for (let j = 1; j <= Math.min(displayNum, listData.length); j++) {
+      let song = listData[j - 1];
+      let tableRow = Object.entries(song).map(([key, value]) => {
         if (key !== SONG_KEY.SONG_ID && key !== SONG_KEY.LYRICS) {
           return (<TableCell key={value}>{value}</TableCell>)
         }
@@ -29,8 +29,7 @@ class SongListTable extends Component {
         </Button>
       </TableCell> : null}
       </TableRow>)
-      }
-
+    }
 
     return (
       <Table>

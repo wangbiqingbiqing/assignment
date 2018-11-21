@@ -14,20 +14,20 @@ import java.util.Arrays;
 @Slf4j
 public class ShuffleEngineImpl implements ShuffleEngine {
 
-    static final Song[] fixedPlayList = getSongs();
-    static Song[] dynamicPlayList = fixedPlayList.clone();
+    static final Song[] fixedPlayList = generateSongs();
     static final int peekNum = 5;
+    static Song[] dynamicPlayList = fixedPlayList.clone();
     static String[] playLists = { "playlist" };
 
-    public static Song[] getSongs() {
-        Song[] mock = new Song[10];
+    public static Song[] generateSongs() {
+        Song[] mock = new Song[5];
         for (int i = 0; i < mock.length; i++) {
             mock[i] = com.teamspirit.assignment.shuffledplayer.pojo.Song.builder()
-                    .songId(String.valueOf(i))
-                    .songName("Song" + i)
-                    .artist("Artist" + i)
-                    .album("Album" + i)
-                    .lyrics("lyrics" + i)
+                    .songId(String.valueOf((i + 1)))
+                    .songName("Song" + (i + 1))
+                    .artist("Artist" + (i + 1))
+                    .album("Album" + (i + 1))
+                    .lyrics("lyrics" + (i + 1))
                     .time("4:30")
                     .build();
         }
@@ -60,10 +60,8 @@ public class ShuffleEngineImpl implements ShuffleEngine {
     public Song getNextSong(String songId) {
         int index = getCurrentSongIndex(songId, dynamicPlayList);
         if (index == -1) {
-            dynamicPlayList = fixedPlayList.clone();
-            dynamicPlayList = setSongs(dynamicPlayList);
             index = 0;
-        } else if (index == dynamicPlayList.length - 1 ) {
+        } else if (index == dynamicPlayList.length - 1) {
             dynamicPlayList = fixedPlayList.clone();
             dynamicPlayList = setSongs(dynamicPlayList);
             index = 0;
@@ -77,10 +75,8 @@ public class ShuffleEngineImpl implements ShuffleEngine {
     public Song getPreviousSong(String songId) {
         int index = getCurrentSongIndex(songId, dynamicPlayList);
         if (index == -1) {
-            dynamicPlayList = fixedPlayList.clone();
-            dynamicPlayList = setSongs(dynamicPlayList);
             index = 0;
-        } else if (index == 0 ) {
+        } else if (index == 0) {
             dynamicPlayList = fixedPlayList.clone();
             dynamicPlayList = setSongs(dynamicPlayList);
             index = 0;
@@ -92,18 +88,23 @@ public class ShuffleEngineImpl implements ShuffleEngine {
 
     private Song[] generatePeekQueue(String songId) {
         int index = getCurrentSongIndex(songId, dynamicPlayList);
-        index = index == -1 ? 0 : (index % dynamicPlayList.length);
-        Song[] peekList = Arrays.copyOfRange(dynamicPlayList, index + 1, dynamicPlayList.length);
-
+        Song[] peekList;
+        //when current song is not in the list, start from the index 0
+        if (index == -1) {
+            peekList = Arrays.copyOfRange(dynamicPlayList, 0, dynamicPlayList.length);
+        }
+        //when current song is in the list, show the rest songs from current
+        else {
+            index = index % dynamicPlayList.length;
+            peekList = Arrays.copyOfRange(dynamicPlayList, index + 1, dynamicPlayList.length);
+        }
         return peekList;
     }
 
     @Override
     public Song[] getPeekQueue(String songId) {
         Song[] peekQueue = generatePeekQueue(songId);
-        if (peekQueue.length > 5) {
-            peekQueue = Arrays.copyOfRange(peekQueue, 0, peekNum);
-        }
+        peekQueue = Arrays.copyOfRange(peekQueue, 0, Math.min(peekNum, peekQueue.length));
         return peekQueue;
     }
 
@@ -127,12 +128,10 @@ public class ShuffleEngineImpl implements ShuffleEngine {
         int currentIndex = getCurrentSongIndex(currentSongId, fixedPlayList);
         dynamicPlayList = (Song[])ArrayUtils.add(dynamicPlayList, 0, fixedPlayList[currentIndex]);
         Song[] skippedQueue = getPeekQueue(currentSongId);
-        if (skippedQueue.length > 5) {
-            skippedQueue = Arrays.copyOfRange(skippedQueue, 0, peekNum);
-        }
+        skippedQueue = Arrays.copyOfRange(skippedQueue, 0, Math.min(peekNum, skippedQueue.length));
+
         return skippedQueue;
     }
-
 
     private int getCurrentSongIndex(String songId, Song[] playList) {
         for (int i = 0; i < playList.length; i++) {

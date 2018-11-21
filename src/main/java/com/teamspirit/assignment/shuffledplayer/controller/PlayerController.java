@@ -18,7 +18,7 @@ public class PlayerController {
     private final ShuffleEngine shuffleEngine = new ShuffleEngineImpl();
 
     @RequestMapping(value = EndPoint.NEXT_SONG, method = RequestMethod.GET)
-    public Song getNextSong(@RequestParam  String songId) {
+    public Song getNextSong(@RequestParam String songId) {
         return shuffleEngine.getNextSong(songId);
     }
 
@@ -44,7 +44,7 @@ public class PlayerController {
 
     @RequestMapping(value = EndPoint.SKIPPEDPEEKLIST, method = RequestMethod.GET)
     public Song[] getSkippedPeekList(@RequestParam String skipSongId, String currentSongId) {
-        return shuffleEngine.getPeekListAfterSkip( skipSongId, currentSongId);
+        return shuffleEngine.getPeekListAfterSkip(skipSongId, currentSongId);
     }
 
 }

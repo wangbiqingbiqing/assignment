@@ -4,10 +4,10 @@ import SidePanel from "../components/SidePanel";
 
 const SidePanelCon = connect(
   state => ({
-    data:state.playLists,
+    data: state.playLists,
   }),
-  dispatch=>({
-    openPlayList:() =>dispatch(getPlaylist())
+  dispatch => ({
+    openPlayList: () => dispatch(getPlaylist())
   })
 )(SidePanel);
 

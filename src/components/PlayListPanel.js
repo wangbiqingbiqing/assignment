@@ -15,10 +15,10 @@ const styles = theme => ({
 })
 
 class PlayListPanel extends Component {
- constructor(props){
-   super(props);
-   this.playPlaylist=this.playPlaylist.bind(this);
- }
+  constructor(props) {
+    super(props);
+    this.playPlaylist = this.playPlaylist.bind(this);
+  }
 
   playPlaylist() {
     if (this.props.isLoggedIn) {
@@ -35,25 +35,25 @@ class PlayListPanel extends Component {
       <React.Fragment>
         <Grid container spacing={8} justify="center"
               alignItems="center" className={classes.margin}>
-          <Grid item xs={10} >
+          <Grid item xs={10}>
             <Typography variant="h5" gutterBottom>
               Playlist
             </Typography>
           </Grid>
-          <Grid item xs={10} >
+          <Grid item xs={10}>
 
-            <div style={{float:'right'}}>
+            <div style={{float: 'right'}}>
               <IconButton color="inherit">
                 <Link to="/peeklist" style={{textDecoration: 'none'}}>
-                <PlaylistPlay onClick={this.playPlaylist}/>
+                  <PlaylistPlay onClick={this.playPlaylist}/>
                 </Link>
               </IconButton>
             </div>
           </Grid>
 
-          <Grid item xs={10} >
+          <Grid item xs={10}>
             <Paper>
-              <SongListTable  data ={this.props.playList} isPeekList={false} displayNum={this.props.playList.length}/>
+              <SongListTable data={this.props.playList} isPeekList={false} displayNum={this.props.playList.length}/>
             </Paper>
           </Grid>
         </Grid>

@@ -1,15 +1,13 @@
 import Grid from "@material-ui/core/Grid/Grid";
 import React, {Component} from 'react';
+import {Switch, Route} from "react-router-dom";
 import './App.css';
-import history from './history'
-import {Switch, Route, BrowserRouter} from "react-router-dom";
 import WelcomePage from "./components/WelcomePage";
 import BottomBarCon from "./containers/BottomBarCon";
 import HeaderBarCon from "./containers/HeaderBarCon";
 import PeekListPanelCon from "./containers/PeekListPanelCon";
 import PlayListPanelCon from "./containers/PlayListPanelCon";
 import SidePanelCon from "./containers/SidePanelCon";
-
 
 class App extends Component {
   render() {
@@ -18,9 +16,9 @@ class App extends Component {
         <Grid item xs={12}>
           <HeaderBarCon/>
         </Grid>
-        <Grid container >
+        <Grid container>
           <Grid item xs={2}>
-            <SidePanelCon />
+            <SidePanelCon/>
           </Grid>
           <Grid item xs={10}>
 

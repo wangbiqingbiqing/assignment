@@ -91,7 +91,7 @@ export function playNextSong() {
   return (dispatch, getState) => {
     const data = getState();
     const songId = data.currentSong.songId;
-    return apiGetNextSong( songId)
+    return apiGetNextSong(songId)
       .then(response => {
         dispatch(setCurrent(response.data));
         if (!data.isPreviousEnabled) {

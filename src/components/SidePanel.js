@@ -12,15 +12,15 @@ class SidePanel extends Component {
 
     let tableData = [];
     if (typeof(this.props.data) === 'object') {
-    this.props.data.forEach(listName =>
-      tableData.push(
-        <TableRow key={listName} onClick={event => this.props.openPlayList}>
-          <Link to="/playlist" style={{textDecoration: 'none', color: 'white'}}>
-            <TableCell>
-              {listName}
-            </TableCell>
-          </Link>
-        </TableRow>))
+      this.props.data.forEach(listName =>
+        tableData.push(
+          <TableRow key={listName} onClick={event => this.props.openPlayList}>
+            <Link to="/playlist" style={{textDecoration: 'none', color: 'white'}}>
+              <TableCell>
+                {listName}
+              </TableCell>
+            </Link>
+          </TableRow>))
 
     }
 

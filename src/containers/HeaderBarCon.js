@@ -1,7 +1,5 @@
 import connect from "react-redux/es/connect/connect";
-import {
- login,logout
-} from "../actions/actions";
+import {login, logout} from "../actions/actions";
 import HeaderBar from "../components/HeaderBar";
 
 const HeaderBarCon = connect(
@@ -10,7 +8,7 @@ const HeaderBarCon = connect(
   }),
   dispatch => ({
     login: () => dispatch(login()),
-    logout:() => dispatch(logout())
+    logout: () => dispatch(logout())
   })
 )(HeaderBar);
 
