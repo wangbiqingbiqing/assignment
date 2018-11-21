@@ -1,6 +1,4 @@
 import {
-  SET_NEXT,
-  SET_PREVIOUS,
   DISABLE_PREVIOUS,
   ENABLE_PREVIOUS,
   TURN_ON_PLAYER,
@@ -63,11 +61,6 @@ export default function appData(state = defaultState, action) {
         ...state,
         playList:action.playlist,
       };
-    case SET_LIST_NAME:
-      return {
-        ...state,
-        listName:action.listName,
-    };
     case SET_LOG_IN:
       return{
         ...state,

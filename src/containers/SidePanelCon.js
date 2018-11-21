@@ -7,7 +7,7 @@ const SidePanelCon = connect(
     data:state.playLists,
   }),
   dispatch=>({
-    openPlayList:(listName) =>dispatch(getPlaylist(listName))
+    openPlayList:() =>dispatch(getPlaylist())
   })
 )(SidePanel);
 

@@ -7,16 +7,6 @@ import React, {Component} from 'react';
 import Link from "react-router-dom/es/Link";
 
 class SidePanel extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {redirectFlag: false};
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick(event, listName) {
-    this.setState({redirectFlag: true});
-    this.props.openPlayList(listName);
-  }
 
   render() {
 
@@ -24,8 +14,8 @@ class SidePanel extends Component {
     if (typeof(this.props.data) === 'object') {
       this.props.data.forEach(listName =>
         tableData.push(
-          <TableRow key={listName} onClick={event => this.handleClick(event, listName)}>
-            <Link to="/playlist" style={{textDecoration: 'none', color: 'white'}}>
+          <TableRow key={listName} onClick={event => this.props.openPlayList}>
+          <Link to="/playlist" style={{textDecoration: 'none', color: 'white'}}>
               <TableCell>
                 {listName}
               </TableCell>

@@ -56,15 +56,6 @@ public class ShuffleEngineImpl implements ShuffleEngine {
 
     }
 
-    private int getCurrentSongIndex(String songId, Song[] playList) {
-        for (int i = 0; i < playList.length; i++) {
-            if (playList[i].getSongId().equals(songId)) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     @Override
     public Song getNextSong(String songId) {
         int index = getCurrentSongIndex(songId, dynamicPlayList);
@@ -140,5 +131,15 @@ public class ShuffleEngineImpl implements ShuffleEngine {
             skippedQueue = Arrays.copyOfRange(skippedQueue, 0, peekNum);
         }
         return skippedQueue;
+    }
+
+
+    private int getCurrentSongIndex(String songId, Song[] playList) {
+        for (int i = 0; i < playList.length; i++) {
+            if (playList[i].getSongId().equals(songId)) {
+                return i;
+            }
+        }
+        return -1;
     }
 }

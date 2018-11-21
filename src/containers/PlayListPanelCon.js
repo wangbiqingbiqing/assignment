@@ -4,11 +4,10 @@ import PlayListPanel from "../components/PlayListPanel";
 
 const PlayListPanelCon = connect(
   state => ({
-    listName: state.listName,
     playList: state.playList,
   }),
   dispatch => ({
-    playPlaylist:(listName)=>dispatch(playNextSongAndUpdatePeekList(listName)),
+    playPlaylist:()=>dispatch(playNextSongAndUpdatePeekList()),
   })
 )(PlayListPanel)
 export default PlayListPanelCon

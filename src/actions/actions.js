@@ -62,15 +62,6 @@ export function setPlaylists(playlists) {
   }
 }
 
-export const SET_LIST_NAME = 'SET_LIST_NAME';
-
-export function setListName(listName) {
-  return {
-    type: SET_LIST_NAME,
-    listName,
-  }
-}
-
 export const SET_PEEK_LIST = 'SET_PEEK_LIST';
 
 export function setPeekList(peekList) {
