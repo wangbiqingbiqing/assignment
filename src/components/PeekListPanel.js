@@ -6,23 +6,42 @@ import TableBody from "@material-ui/core/es/TableBody/TableBody";
 import TableCell from "@material-ui/core/es/TableCell/TableCell";
 import TableHead from "@material-ui/core/es/TableHead/TableHead";
 import TableRow from "@material-ui/core/es/TableRow/TableRow";
+import TextField from "@material-ui/core/es/TextField/TextField";
 import Typography from "@material-ui/core/es/Typography/Typography";
 import {withStyles} from "@material-ui/core/styles/index";
 import React, {Component} from 'react';
 import {SONG_KEY} from "../constants/keys";
+import {PLAY_MODE} from "../constants/states";
 import SongListTable from "./SongListTable";
 
 const styles = theme => ({
   margin: {
     marginTop: '64px',
     height: '100%',
-
+  },
+  textField:{
+    marginTop: '0px',
+    marginBottom:'0px',
+    marginLeft:'10px'
   }
 })
 
 class PeekListPanel extends Component {
   constructor(props){
     super(props);
+    this.state = {
+      peekNum: 5
+    };
+    this.changePeekNumber= this.changePeekNumber.bind(this);
+  }
+
+  changePeekNumber(event){
+
+    console.log(event.target.value);
+    if(event.target.value<0){
+      this.setState({peekNum:0});
+    }
+    this.setState({peekNum:event.target.value});
   }
   render() {
     const {classes} = this.props;
@@ -63,7 +82,7 @@ class PeekListPanel extends Component {
                 </Paper>
               </div>
             </Grid>
-            {this.props.peekList.length !== 0 && <Grid item xs={10}>
+            {this.props.peekList.length !== 0&& this.props.isLoggedIn && <Grid item xs={10}>
               <Grid container>
                 <Grid item xs={10}>
                   <div>
@@ -71,10 +90,12 @@ class PeekListPanel extends Component {
                   </div>
                   <div style={{float: 'right'}}>
                     Peek Number
-                    <Input
+                    <TextField
+                      className={classes.textField}
                       type="number"
-                      defaultValue={5}
-                      onClick={this.changePeekNumber}
+                      value = {this.state.peekNum}
+                      onChange={this.changePeekNumber}
+                      InputProps={{ inputProps: { min: 0, max: 5 } }}
                       inputProps={{
                         'aria-label': 'peek number',
                       }}
