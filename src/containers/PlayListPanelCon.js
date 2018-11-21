@@ -1,13 +1,14 @@
 import connect from "react-redux/es/connect/connect";
-import {getPeekList, playSonglist} from "../actions/actions";
+import {getPeekList, playSonglist, playNextSongAndUpdatePeekList} from "../actions/actions";
 import PlayListPanel from "../components/PlayListPanel";
 
 const PlayListPanelCon = connect(
   state => ({
     listName: state.listName,
+    playList: state.playList,
   }),
   dispatch => ({
-    playPlaylist:(listName)=>dispatch(playSonglist(listName)),
+    playPlaylist:(listName)=>dispatch(playNextSongAndUpdatePeekList(listName)),
   })
 )(PlayListPanel)
 export default PlayListPanelCon

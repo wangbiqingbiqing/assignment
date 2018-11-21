@@ -1,5 +1,5 @@
 import connect from "react-redux/es/connect/connect";
-import {getPeekList} from "../actions/actions";
+import {getPeekList, skipSong} from "../actions/actions";
 import PeekListPanel from "../components/PeekListPanel";
 
 const PeekListPanelCon = connect(

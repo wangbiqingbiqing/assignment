@@ -10,8 +10,8 @@ const BottomBarCon = connect(
     isPlayOn:state.isTurnedOn,
   }),
   dispatch => ({
-    playNext: () => dispatch(playNextSong()),
-    playPrevious: () => dispatch(playPreviousSong()),
+    playNext: () => dispatch(playNextSongAndUpdatePeekList()),
+    playPrevious: () => dispatch(playPreviousSongAndUpdatePeekList()),
     handleSwitchOn:()=>dispatch(turnOnPlayer()),
     handleSwitchOff:()=>dispatch(turnOffPlayer()),
     handleSwitchPlayMode:(playMode)=>dispatch(setPlayMode(playMode)),

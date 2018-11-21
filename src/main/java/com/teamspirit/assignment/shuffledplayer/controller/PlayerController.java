@@ -42,5 +42,9 @@ public class PlayerController {
         return shuffleEngine.getPeekQueue(songId);
     }
 
+    @RequestMapping(value = EndPoint.SKIPPEDPEEKLIST, method = RequestMethod.GET)
+    public Song[] getSkippedPeekList(@RequestParam String skipSongId, String currentSongId) {
+        return shuffleEngine.getPeekListAfterSkip( skipSongId, currentSongId);
+    }
 
 }

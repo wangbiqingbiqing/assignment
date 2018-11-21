@@ -5,6 +5,8 @@ import Typography from "@material-ui/core/es/Typography/Typography";
 import {withStyles} from "@material-ui/core/styles/index";
 import PlaylistPlay from '@material-ui/icons/PlaylistPlay';
 import React, {Component} from 'react';
+import Link from "react-router-dom/es/Link";
+import Redirect from "react-router/es/Redirect";
 import SongListTable from "./SongListTable";
 
 const styles = theme => ({
@@ -15,8 +17,26 @@ const styles = theme => ({
 
 class PlayListPanel extends Component {
 
+  state = {
+    redirect : false
+  };
+
+  constructor(props){
+    super(props);
+    this.playPlaylist=this.playPlaylist.bind(this);
+  }
+
+  playPlaylist(){
+
+    this.props.playPlaylist();
+    // return    <Redirect push to="/peeklist" />;
+    this.setState({redirect:true});
+  }
+
   render() {
+    console.log()
     const {classes} = this.props;
+
     return (
       <React.Fragment>
         <Grid container spacing={8} justify="center"
@@ -31,14 +51,16 @@ class PlayListPanel extends Component {
               PlayList 1
             <div style={{float:'right'}}>
               <IconButton color="inherit">
-                <PlaylistPlay onClick={this.props.playPlaylist}/>
+                <Link to="/peeklist" style={{textDecoration: 'none'}}>
+                <PlaylistPlay onClick={this.playPlaylist}/>
+                </Link>
               </IconButton>
             </div>
           </Grid>
 
           <Grid item xs={10} >
             <Paper>
-              <SongListTable/>
+              <SongListTable  data ={this.props.playList} isPeekList={false}/>
             </Paper>
           </Grid>
         </Grid>

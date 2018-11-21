@@ -6,6 +6,8 @@ import {fade} from '@material-ui/core/styles/colorManipulator';
 import Toolbar from "@material-ui/core/Toolbar/Toolbar";
 import Search from '@material-ui/icons/Search';
 import React, {Component} from "react";
+import Link from "react-router-dom/es/Link";
+import Redirect from "react-router/es/Redirect";
 import logo from '../pictures/teamSpiritLogo.PNG';
 
 const styles = theme => ({
@@ -74,6 +76,8 @@ class HeaderBar extends Component {
   render() {
     const {classes} = this.props;
     let text = this.props.isLoggedIn;
+
+
     return (
       <AppBar position="fixed">
         <Toolbar className={classes.toolBar}>
@@ -93,7 +97,9 @@ class HeaderBar extends Component {
           </div>
           {
             this.props.isLoggedIn ?
-              <Button color="inherit" onClick={this.props.logout}>LOGOUT</Button> :
+              <div><Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
+              <Button color="inherit" onClick={this.props.logout}>LOGOUT</Button> </Link></div> :
+
               <Button color="inherit" onClick={this.props.login}>LOGIN</Button>
           }
         </Toolbar>

@@ -33,6 +33,7 @@ class App extends Component {
     let gridStyle = {
       height: this.state.midGridHeight + 'px',
     };
+
     return (
       <BrowserRouter >
       <Grid container>
@@ -45,15 +46,12 @@ class App extends Component {
           </Grid>
           <Grid item xs={10}>
 
-            <Switch>
-              <Route path={'/playlist'} component={PlayListPanelCon}/>
+
+              <Route exact path={'/playlist'} component={PlayListPanelCon}/>
               <Route exact path={'/peeklist'} component={PeekListPanelCon}/>
               <Route exact path={'/'}
                      render={() => <WelcomePage text={'Log in to shuffle your playlist!'}/>}
               />
-              <Route render={() => <WelcomePage text={'Welcome to Shuffle Player! Enjoy shuffling :-)'}/>}
-              />
-            </Switch>
 
           </Grid>
         </Grid>

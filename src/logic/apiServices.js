@@ -41,3 +41,11 @@ export function apiGetPeekList(songId,playList,playMode){
         listName:songId,
       }})
 }
+
+export function apiGetPeekListAfterSkip(skippedSongId, currentSongId){
+  return axios.get('/skippedPeeklist',
+    {params:{
+        skipSongId:skippedSongId,
+        currentSongId:currentSongId
+      }})
+}

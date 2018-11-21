@@ -3,7 +3,7 @@ import {
   apiGetPreviousSong,
   apiGetPlayLists,
   apiGetPlayList,
-  apiGetPeekList
+  apiGetPeekList, apiGetPeekListAfterSkip
 } from "../logic/apiServices";
 
 export const SET_CURRENT_SONG = 'SET_CURRENT_SONG';
@@ -90,11 +90,18 @@ return {
 
 export function playNextSongAndUpdatePeekList(){
   return (dispatch,getStete)=>{
-    Promise.all([playNextSong,getPeekList]).then(([nextSong,peekList])=>{
-      console.log(nextSong,peekList);
-      dispatch(setCurrent(nextSong));
-      dispatch(setPeekList(peekList));
-    })
+    Promise.all([dispatch(playNextSong())]).then(result => {
+      return dispatch(getPeekList());
+    });
+  }
+}
+
+export function playPreviousSongAndUpdatePeekList(){
+  return (dispatch,getStete)=>{
+    Promise.all([dispatch(playPreviousSong())]).then(result => {
+      console.log(result)
+      return dispatch(getPeekList());
+    });
   }
 }
 
@@ -233,3 +240,15 @@ export function logout(){
     dispatch(setLogout());
   }
 }
+
+export function skipSong(skippedSongId){
+  return (dispatch, getState) => {
+    const currentSongId = getState().currentSong.songId;
+  return apiGetPeekListAfterSkip(skippedSongId,currentSongId)
+    .then(response => {
+      dispatch(setPeekList(response.data));
+    })
+    .catch(error =>
+      console.log(error)
+    );
+}}

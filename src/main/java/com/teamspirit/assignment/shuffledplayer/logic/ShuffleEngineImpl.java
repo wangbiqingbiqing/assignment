@@ -3,6 +3,7 @@ package com.teamspirit.assignment.shuffledplayer.logic;
 import com.teamspirit.assignment.shuffledplayer.pojo.Song;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Arrays;
@@ -17,9 +18,9 @@ public class ShuffleEngineImpl implements ShuffleEngine {
     static final Song[] fixedPlayList = getSongs();
     static Song[] dynamicPlayList = fixedPlayList.clone();
     static String playMode = "shuffle";
-    static int peekNum = dynamicPlayList.length;
+    static final int peekNum = 5;
     static String[] playLists = { "play1ist1", "play1ist2", "play1ist3" };
-    static Map<String, Song[] > mock = new HashMap<>();
+    //static Map<String, Song[] > mock = new HashMap<>();
 
 
     public static Song[] getSongs() {
@@ -81,6 +82,7 @@ public class ShuffleEngineImpl implements ShuffleEngine {
             index =0;
         }
         else if (index == dynamicPlayList.length-1 ||isModeChange) {
+            dynamicPlayList = fixedPlayList.clone();
             dynamicPlayList=setSongs(dynamicPlayList, playMode);
             index =0;
         }else{
@@ -97,6 +99,7 @@ public class ShuffleEngineImpl implements ShuffleEngine {
             index = 0;
         }
         else if (index == 0 || isModeChange) {
+            dynamicPlayList = fixedPlayList.clone();
             dynamicPlayList = setSongs(dynamicPlayList, playMode);
             index = 0;
         }else{
@@ -105,12 +108,21 @@ public class ShuffleEngineImpl implements ShuffleEngine {
         return dynamicPlayList[index];
     }
 
-    @Override
-    public Song[] getPeekQueue(String songId) {
+    private Song[] generatePeekQueue(String songId) {
         int index = getCurrentSongIndex(songId, dynamicPlayList);
         index = index==-1?0:(index%dynamicPlayList.length);
         Song[] peekList = Arrays.copyOfRange(dynamicPlayList, index+1, dynamicPlayList.length);
+
         return peekList;
+    }
+
+    @Override
+    public Song[] getPeekQueue(String songId) {
+        Song[] peekQueue = generatePeekQueue(songId);
+        if(peekQueue.length>5){
+            peekQueue = Arrays.copyOfRange(peekQueue, 0, peekNum);
+        }
+        return peekQueue;
     }
 
     @Override
@@ -123,5 +135,19 @@ public class ShuffleEngineImpl implements ShuffleEngine {
     public String[] getPlayLists() {
 
         return playLists;
+    }
+
+    @Override
+    public Song[] getPeekListAfterSkip(String skipSongId, String currentSongId){
+        Song[] peekList = generatePeekQueue(currentSongId);
+        int skipedIndex = getCurrentSongIndex(skipSongId,peekList);
+        dynamicPlayList= (Song[])ArrayUtils.removeElement(peekList,peekList[skipedIndex]);
+        int currentIndex = getCurrentSongIndex(currentSongId,fixedPlayList);
+        dynamicPlayList = (Song[]) ArrayUtils.add(dynamicPlayList,0 , fixedPlayList[currentIndex]);
+        Song[] skippedQueue = getPeekQueue(currentSongId);
+        if(skippedQueue.length>5){
+            skippedQueue = Arrays.copyOfRange(skippedQueue, 0, peekNum);
+        }
+        return skippedQueue;
     }
 }

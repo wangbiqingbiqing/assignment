@@ -7,4 +7,5 @@ public class EndPoint {
     public static final String PLAYLISTS = "/playlists";
     public static final String PLAYLIST = "/playlist";
     public static final String PEEKLIST = "/peeklist";
+    public static final String SKIPPEDPEEKLIST = "/skippedPeeklist";
 }

@@ -16,6 +16,7 @@ import VolumeOff from '@material-ui/icons/VolumeOff';
 import VolumeUp from '@material-ui/icons/VolumeUp';
 import Slider from "@material-ui/lab/es/Slider/Slider";
 import React, {Component} from 'react'
+import Link from "react-router-dom/es/Link";
 import {PLAY_MODE} from "../constants/states";
 import logo from '../pictures/teamSpiritLogo.PNG';
 
@@ -26,15 +27,15 @@ const styles = theme => ({
   },
   playActions: {
     width: '15%',
-    display:'flex',
+    display: 'flex',
   },
   songInfo: {
     width: '50%',
-    display:'flex',
+    display: 'flex',
   },
   playStatus: {
     width: '35%',
-    display:'flex',
+    display: 'flex',
   },
   image: {
     width: 30,
@@ -55,8 +56,8 @@ const styles = theme => ({
   trackAfter: {
     backgroundColor: '#fff',
   },
-  root:{
-    width:'50%',
+  root: {
+    width: '50%',
   }
 })
 
@@ -178,7 +179,7 @@ class BottomBar extends Component {
                         thumbIconWrapper: classes.thumbIconWrapper,
                         trackBefore: classes.trackBefore,
                         trackAfter: classes.trackAfter,
-                        root:classes.root,
+                        root: classes.root,
                       }}
                       thumb={<LensIcon style={{color: '#2196f3'}}
                       />}
@@ -199,20 +200,23 @@ class BottomBar extends Component {
                         thumbIconWrapper: classes.thumbIconWrapper,
                         trackBefore: classes.trackBefore,
                         trackAfter: classes.trackAfter,
-                        root:classes.root,
+                        root: classes.root,
                       }}
                       thumb={<LensIcon style={{color: '#2196f3'}}/>}
 
               />
               <div>
-              <IconButton color="inherit" onClick={this.switchPlayMode}>
-                {currentPlayMode}
-              </IconButton>
+                <IconButton color="inherit" onClick={this.switchPlayMode}>
+                  {currentPlayMode}
+                </IconButton>
               </div>
               <div>
-              <IconButton color="inherit" onClick={this.handleQueuePeeking}>
-                <QueueMusic/>
-              </IconButton>
+
+                <IconButton color="inherit" onClick={this.props.getPeekList}>
+                  <Link to="/peeklist" style={{textDecoration: 'none', color: 'white'}}>
+                    <QueueMusic/>
+                  </Link>
+                </IconButton>
               </div>
             </Grid>
           </Grid>

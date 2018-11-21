@@ -14,4 +14,6 @@ public interface ShuffleEngine {
     Song[] getPlayList(String listName);
 
     String[] getPlayLists();
+
+    Song[] getPeekListAfterSkip(String skipSongId, String currentSongId);
 }
