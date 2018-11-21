@@ -160,7 +160,9 @@ class BottomBar extends Component {
           <Grid container>
             <Grid item xs={2} className={classes.playActions}>
               <IconButton aria-label="Previous" color="inherit" disabled={!this.props.isPreviousEnabled}>
-                <SkipPrevious onClick={this.props.playPrevious}/>
+                <Link to="/peeklist" style={{textDecoration: 'none', color: 'white'}}>
+                  <SkipPrevious onClick={this.props.playPrevious}/>
+                </Link>
               </IconButton>
               <IconButton color="inherit">
                 {!this.props.isPlayOn ?
@@ -168,7 +170,10 @@ class BottomBar extends Component {
                   <Pause onClick={this.props.handleSwitchOff}/>}
               </IconButton>
               <IconButton aria-label="Next" color="inherit">
-                <SkipNext onClick={this.props.playNext}/></IconButton>
+                <Link to="/peeklist" style={{textDecoration: 'none', color: 'white'}}>
+                  <SkipNext onClick={this.props.playNext}/>
+                </Link>
+              </IconButton>
             </Grid>
             <Grid item xs={6} className={classes.songInfo}>
               <div><img className={classes.image} src={logo} alt="TeamSpirit"/></div>
