@@ -33,12 +33,11 @@ class PeekListPanel extends Component {
     this.changePeekNumber = this.changePeekNumber.bind(this);
   }
 
-  changePeekNumber(event) {
-    if (event.target.value < 0) {
-      this.setState({peekNum: 0});
-    }
+  changePeekNumber(event,value) {
+    console.log(value)
     this.setState({peekNum: event.target.value});
   }
+
   render() {
     const {classes} = this.props;
     return (
@@ -78,7 +77,6 @@ class PeekListPanel extends Component {
                   </Paper>
                 </div>
               </Grid>
-            {this.props.peekList.length !== 0 && this.props.isLoggedIn &&
             <Grid item xs={10}>
               <Grid container>
                 <Grid item xs={10}>
@@ -92,7 +90,7 @@ class PeekListPanel extends Component {
                         className={classes.textField}
                         type="number"
                         value={this.state.peekNum}
-                        onChange={this.changePeekNumber}
+                        onChange={(event,value)=>this.changePeekNumber(event,value)}
                         InputProps={{inputProps: {min: 0, max: 5}}}
                         inputProps={{
                           'aria-label': 'peek number',
@@ -101,14 +99,15 @@ class PeekListPanel extends Component {
                     </div>
                   </div>
                 </Grid>
-                <Grid item xs={10}>
+                {this.props.peekList.length !== 0 && this.props.isLoggedIn &&<Grid item xs={10}>
                   <Paper>
                     <SongListTable data={this.props.peekList} isPeekList={true}
-                                   skipSong={(songId) => this.props.skipSong(songId)}/>
+                                   skipSong={(songId) => this.props.skipSong(songId)}
+                                   displayNum={this.state.peekNum}/>
                   </Paper>
-                </Grid>
+                </Grid>}
               </Grid>
-            </Grid>}
+            </Grid>
           </Grid>
         </div>
       </React.Fragment>

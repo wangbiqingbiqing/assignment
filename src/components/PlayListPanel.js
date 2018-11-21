@@ -16,24 +16,8 @@ const styles = theme => ({
 
 class PlayListPanel extends Component {
 
-  state = {
-    redirect : false
-  };
-
-  constructor(props){
-    super(props);
-    this.playPlaylist=this.playPlaylist.bind(this);
-  }
-
-  playPlaylist(){
-
-    this.props.playPlaylist();
-    // return    <Redirect push to="/peeklist" />;
-    this.setState({redirect:true});
-  }
-
   render() {
-    console.log()
+    console.log(this.props.playList.length);
     const {classes} = this.props;
 
     return (
@@ -58,7 +42,7 @@ class PlayListPanel extends Component {
 
           <Grid item xs={10} >
             <Paper>
-              <SongListTable  data ={this.props.playList} isPeekList={false}/>
+              <SongListTable  data ={this.props.playList} isPeekList={false} displayNum={this.props.playList.length}/>
             </Paper>
           </Grid>
         </Grid>
