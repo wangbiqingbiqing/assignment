@@ -18,13 +18,13 @@ public class PlayerController {
     private final ShuffleEngine shuffleEngine = new ShuffleEngineImpl();
 
     @RequestMapping(value = EndPoint.NEXT_SONG, method = RequestMethod.GET)
-    public Song getNextSong(@RequestParam String playMode, String songId, Boolean isModeChange) {
-        return shuffleEngine.getNextSong(playMode, songId, isModeChange);
+    public Song getNextSong(@RequestParam  String songId) {
+        return shuffleEngine.getNextSong(songId);
     }
 
     @RequestMapping(value = EndPoint.PREVIOUS_SONG, method = RequestMethod.GET)
-    public Song getPreviousSong(@RequestParam String playMode,  String songId, Boolean isModeChange) {
-        return shuffleEngine.getPreviousSong(playMode, songId, isModeChange);
+    public Song getPreviousSong(@RequestParam String songId) {
+        return shuffleEngine.getPreviousSong(songId);
     }
 
     @RequestMapping(value = EndPoint.PLAYLISTS, method = RequestMethod.GET)

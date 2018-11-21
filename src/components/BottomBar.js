@@ -7,8 +7,6 @@ import LensIcon from '@material-ui/icons/LensOutlined';
 import Pause from '@material-ui/icons/Pause';
 import PlayArrow from '@material-ui/icons/PlayArrow';
 import QueueMusic from '@material-ui/icons/QueueMusic'
-import Repeat from '@material-ui/icons/Repeat';
-import RepeatOne from '@material-ui/icons/RepeatOne';
 import Shuffle from '@material-ui/icons/Shuffle';
 import SkipNext from '@material-ui/icons/SkipNext';
 import SkipPrevious from '@material-ui/icons/SkipPrevious';
@@ -17,7 +15,6 @@ import VolumeUp from '@material-ui/icons/VolumeUp';
 import Slider from "@material-ui/lab/es/Slider/Slider";
 import React, {Component} from 'react'
 import Link from "react-router-dom/es/Link";
-import {PLAY_MODE} from "../constants/states";
 import logo from '../pictures/teamSpiritLogo.PNG';
 
 const styles = theme => ({
@@ -69,29 +66,28 @@ class BottomBar extends Component {
       mute: false,
       playingTime: 0,
       volume: 50,
-      playMode: PLAY_MODE.SHUFFLE,
     };
 
     this.muteVolume = this.muteVolume.bind(this);
     this.resetVolume = this.resetVolume.bind(this);
-    this.switchPlayMode = this.switchPlayMode.bind(this);
     this.volumeChange = this.volumeChange.bind(this);
     this.playingTimeChange = this.playingTimeChange.bind(this);
-    this.playPrevious= this.playPrevious.bind(this);
-    this.playNext= this.playNext.bind(this);
+    this.playPrevious = this.playPrevious.bind(this);
+    this.playNext = this.playNext.bind(this);
   }
+
   playPrevious() {
-    if(this.props.isLoggedIn) {
+    if (this.props.isLoggedIn) {
       this.props.playPrevious();
     }
   }
-  playNext(){
-    if(this.props.isLoggedIn){
+
+  playNext() {
+    if (this.props.isLoggedIn) {
       this.props.playNext();
     }
 
   }
-
 
   muteVolume() {
     this.setState({
@@ -105,27 +101,6 @@ class BottomBar extends Component {
       mute: false,
       volume: 50,
     })
-  }
-
-  switchPlayMode() {
-    let nextMode;
-    switch (this.state.playMode) {
-      case PLAY_MODE.SHUFFLE:
-        nextMode = PLAY_MODE.REPEAT;
-        break;
-      case PLAY_MODE.REPEAT:
-        nextMode = PLAY_MODE.REPEAT_ONE;
-        break;
-      case PLAY_MODE.REPEAT_ONE:
-        nextMode = PLAY_MODE.SHUFFLE;
-        break;
-      default:
-        nextMode = PLAY_MODE.SHUFFLE;
-    }
-    this.setState({
-      playMode: nextMode,
-    })
-    this.props.handleSwitchPlayMode(nextMode);
   }
 
   volumeChange(event, value) {
@@ -150,23 +125,14 @@ class BottomBar extends Component {
   }
 
   render() {
-    //console.log(this.props.history);
     const {classes} = this.props;
-    let currentPlayMode;
-    if (this.state.playMode === PLAY_MODE.REPEAT) {
-      currentPlayMode = <Repeat/>;
-    } else if (this.state.playMode === PLAY_MODE.REPEAT_ONE) {
-      currentPlayMode = <RepeatOne/>;
-    } else {
-      currentPlayMode = <Shuffle/>;
-    }
 
     return (
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <Grid container>
             <Grid item xs={2} className={classes.playActions}>
-              <IconButton aria-label="Previous" color="inherit" >
+              <IconButton aria-label="Previous" color="inherit">
                 <Link to="/peeklist" style={{textDecoration: 'none', color: 'white'}}>
                   <SkipPrevious onClick={this.playPrevious}/>
                 </Link>
@@ -218,8 +184,8 @@ class BottomBar extends Component {
 
               />
               <div>
-                <IconButton color="inherit" onClick={this.switchPlayMode}>
-                  {currentPlayMode}
+                <IconButton color="inherit">
+                  <Shuffle/>
                 </IconButton>
               </div>
               <div>

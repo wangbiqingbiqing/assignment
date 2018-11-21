@@ -1,3 +1,4 @@
+import Button from "@material-ui/core/es/Button/Button";
 import IconButton from "@material-ui/core/es/IconButton/IconButton";
 import Table from "@material-ui/core/es/Table/Table";
 import TableBody from "@material-ui/core/es/TableBody/TableBody";
@@ -11,15 +12,9 @@ import Clear from '@material-ui/icons/Clear';
 class SongListTable extends Component {
   constructor(props){
     super(props)
-    //this.handleSkipSong= this.handleSkipSong.bind(this);
   }
 
-  // handleSkipSong(event,i){
-  //   this.props
-  // }
-
   render() {
-
     let listData = this.props.data;
     let tableBody = [];
     let i =1;
@@ -28,7 +23,14 @@ class SongListTable extends Component {
         if(key!==SONG_KEY.SONG_ID&&key!==SONG_KEY.LYRICS){
         return (<TableCell key={value}>{value}</TableCell>)}
       });
-      tableBody.push(<TableRow key={song.songId}><TableCell key={i}>{i}</TableCell>{tableRow}{this.props.isPeekList?<TableCell><IconButton color="inherit" onClick={() => this.props.skipSong(song.songId)}><Clear/></IconButton></TableCell>:null}</TableRow>
+      tableBody.push(<TableRow key={song.songId}>
+        <TableCell key={i}>{i}</TableCell>
+        {tableRow}{this.props.isPeekList?<TableCell>
+        <Button variant="outlined" size="small"  color="inherit" onClick={() => this.props.skipSong(song.songId)}>
+          skip
+        </Button>
+      </TableCell>:null}
+      </TableRow>
     )
       i=i+1;
     });

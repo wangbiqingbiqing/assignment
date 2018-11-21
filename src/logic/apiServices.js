@@ -6,21 +6,17 @@ port = port === undefined || port === '3000' || port === '3001'? '8080' : port;
 axios.defaults.baseURL = 'http://' + hostname + ':' + port;
 axios.defaults.withCredentials = true;
 
-export function apiGetNextSong(playMode, songId, isModeChange){
+export function apiGetNextSong( songId){
   return axios.get('/nextsong',
     {params:{
-        playMode:playMode,
-        songId:songId,
-        isModeChange:false
+        songId:songId
       }})
 }
 
-export function apiGetPreviousSong(playMode,songId, isModeChange){
+export function apiGetPreviousSong(songId){
   return axios.get('/previousong',
     {params:{
-        playMode:playMode,
-        songId:songId,
-        isModeChange:false
+        songId:songId
       }})
 }
 

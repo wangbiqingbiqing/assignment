@@ -71,15 +71,6 @@ export function setListName(listName) {
   }
 }
 
-export const SET_PLAY_MODE = "SET_PLAY_MODE";
-
-export function setPlayMode(playMode) {
-  return {
-    type: SET_PLAY_MODE,
-    playMode,
-  }
-}
-
 export const SET_PEEK_LIST = 'SET_PEEK_LIST';
 
 export function setPeekList(peekList) {
@@ -108,9 +99,8 @@ export function playPreviousSongAndUpdatePeekList() {
 export function playNextSong() {
   return (dispatch, getState) => {
     const data = getState();
-    const playMode = data.playMode;
     const songId = data.currentSong.songId;
-    return apiGetNextSong(playMode, songId, false)
+    return apiGetNextSong( songId)
       .then(response => {
         dispatch(setCurrent(response.data));
         if (!data.isPreviousEnabled) {
@@ -129,9 +119,8 @@ export function playNextSong() {
 export function playPreviousSong() {
   return (dispatch, getState) => {
     const data = getState();
-    const playMode = data.playMode;
     const songId = data.currentSong.songId;
-    return apiGetPreviousSong(playMode, songId, false)
+    return apiGetPreviousSong(songId)
       .then(response => {
         if (response.data) {
           dispatch(setCurrent(response.data));

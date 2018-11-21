@@ -3,11 +3,11 @@ package com.teamspirit.assignment.shuffledplayer.logic;
 import com.teamspirit.assignment.shuffledplayer.pojo.Song;
 
 public interface ShuffleEngine {
-    Song[] setSongs(Song[] songs , String playMode);
+    Song[] setSongs(Song[] songs);
 
-    Song getNextSong(String playMode, String songId, Boolean isModeChange);
+    Song getNextSong(String songId);
 
-    Song getPreviousSong(String playMode, String songId, Boolean isModeChange);
+    Song getPreviousSong(String songId);
 
     Song[] getPeekQueue(String songId);
 

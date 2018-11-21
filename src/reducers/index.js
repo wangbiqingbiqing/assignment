@@ -10,16 +10,13 @@ import {
   SET_LIST_NAME,
   SET_LOG_IN,
   SET_LOG_OUT,
-  SET_PLAY_MODE,
   SET_PEEK_LIST,
   SET_CURRENT_SONG
 } from "../actions/actions";
-import {DEMO_SONG, PLAY_MODE, DEFAULT_PLAYLISTS, MOCK_SONGS} from "../constants/states";
+import {DEMO_SONG, DEFAULT_PLAYLISTS} from "../constants/states";
 
 const defaultState = {
   playList:[DEMO_SONG],
-  playMode: PLAY_MODE.SHUFFLE,
-  isPlayModeChanged: false,
   peekList:[],
   isTurnedOn: false,
   isPreviousEnabled:false,
@@ -84,11 +81,6 @@ export default function appData(state = defaultState, action) {
         isLoggedIn:false,
         peekList:[DEMO_SONG],
         playLists:DEFAULT_PLAYLISTS,
-      };
-    case SET_PLAY_MODE:
-      return{
-        ...state,
-        playMode:action.playMode,
       };
     case SET_PEEK_LIST:
       return{
