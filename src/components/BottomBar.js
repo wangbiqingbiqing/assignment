@@ -77,7 +77,21 @@ class BottomBar extends Component {
     this.switchPlayMode = this.switchPlayMode.bind(this);
     this.volumeChange = this.volumeChange.bind(this);
     this.playingTimeChange = this.playingTimeChange.bind(this);
+    this.playPrevious= this.playPrevious.bind(this);
+    this.playNext= this.playNext.bind(this);
   }
+  playPrevious() {
+    if(this.props.isLoggedIn) {
+      this.props.playPrevious();
+    }
+  }
+  playNext(){
+    if(this.props.isLoggedIn){
+      this.props.playNext();
+    }
+
+  }
+
 
   muteVolume() {
     this.setState({
@@ -152,9 +166,9 @@ class BottomBar extends Component {
         <Toolbar>
           <Grid container>
             <Grid item xs={2} className={classes.playActions}>
-              <IconButton aria-label="Previous" color="inherit" disabled={!this.props.isPreviousEnabled}>
+              <IconButton aria-label="Previous" color="inherit" >
                 <Link to="/peeklist" style={{textDecoration: 'none', color: 'white'}}>
-                  <SkipPrevious onClick={this.props.playPrevious}/>
+                  <SkipPrevious onClick={this.playPrevious}/>
                 </Link>
               </IconButton>
               <IconButton color="inherit">
@@ -164,7 +178,7 @@ class BottomBar extends Component {
               </IconButton>
               <IconButton aria-label="Next" color="inherit">
                 <Link to="/peeklist" style={{textDecoration: 'none', color: 'white'}}>
-                  <SkipNext onClick={this.props.playNext}/>
+                  <SkipNext onClick={this.playNext}/>
                 </Link>
               </IconButton>
             </Grid>

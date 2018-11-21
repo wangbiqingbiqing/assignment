@@ -41,7 +41,8 @@ class SidePanel extends Component {
             PlayList
           </Typography>
           {typeof(this.props.data) === 'string' ? this.props.data : null}
-          {tableData.length !== 0 && <Table>
+          {tableData.length !== 0 &&
+          <Table>
             <TableBody>
               {tableData}
             </TableBody>

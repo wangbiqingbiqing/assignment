@@ -13,7 +13,7 @@ export const DEMO_SONG = {
   time: '4:03'
 }
 
-export const DEFAULT_PLAYLISTS = 'Login to check and create your own playlist!'
+export const DEFAULT_PLAYLISTS = 'Login to shuffle your own playlist!'
 
 export const MOCK_SONGS = [
   {songId: "0",

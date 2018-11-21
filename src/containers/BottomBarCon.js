@@ -12,6 +12,7 @@ import BottomBar from "../components/BottomBar";
 
 const BottomBarCon = connect(
   state => ({
+    isLoggedIn:state.isLoggedIn,
     song: state.currentSong,
     isPreviousEnabled: state.isPreviousEnabled,
     isPlayOn:state.isTurnedOn,

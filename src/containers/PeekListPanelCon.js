@@ -6,6 +6,7 @@ const PeekListPanelCon = connect(
   state => ({
     currentSong:state.currentSong,
     peekList: state.peekList,
+    isLoggedIn:state.isLoggedIn,
   }),
   dispatch => ({
     getPeekList:()=>dispatch(getPeekList()),

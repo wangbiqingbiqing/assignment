@@ -100,7 +100,6 @@ export function playNextSongAndUpdatePeekList() {
 export function playPreviousSongAndUpdatePeekList() {
   return (dispatch, getStete) => {
     Promise.all([dispatch(playPreviousSong())]).then(result => {
-      console.log(result)
       return dispatch(getPeekList());
     });
   }
@@ -111,7 +110,6 @@ export function playNextSong() {
     const data = getState();
     const playMode = data.playMode;
     const songId = data.currentSong.songId;
-    const isLoggedIn = data.isLoggedIn;
     return apiGetNextSong(playMode, songId, false)
       .then(response => {
         dispatch(setCurrent(response.data));
@@ -132,7 +130,7 @@ export function playPreviousSong() {
   return (dispatch, getState) => {
     const data = getState();
     const playMode = data.playMode;
-    const songId = data.songId;
+    const songId = data.currentSong.songId;
     return apiGetPreviousSong(playMode, songId, false)
       .then(response => {
         if (response.data) {
