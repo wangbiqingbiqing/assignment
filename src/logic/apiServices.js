@@ -28,11 +28,8 @@ export function apiGetPlayLists(){
   return axios.get('/playlists')
 }
 
-export function apiGetPlayList(listName){
-  return axios.get('/playlist',
-    {params:{
-        listName:listName,
-      }})
+export function apiGetPlayList(){
+  return axios.get('/playlist')
 }
 
 export function apiGetPeekList(songId,playList,playMode){
