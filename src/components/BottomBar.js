@@ -75,7 +75,6 @@ class BottomBar extends Component {
     this.muteVolume = this.muteVolume.bind(this);
     this.resetVolume = this.resetVolume.bind(this);
     this.switchPlayMode = this.switchPlayMode.bind(this);
-    this.handleQueuePeeking = this.handleQueuePeeking(this);
     this.volumeChange = this.volumeChange.bind(this);
     this.playingTimeChange = this.playingTimeChange.bind(this);
   }
@@ -134,12 +133,6 @@ class BottomBar extends Component {
     this.setState({
       playingTime: value
     });
-  }
-
-  handleQueuePeeking() {
-    console.log('coming');
-    //console.log(this.props.history);
-    //this.props.history.replaceState(null,'/peeklist');
   }
 
   render() {

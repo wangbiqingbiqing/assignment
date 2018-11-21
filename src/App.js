@@ -1,14 +1,15 @@
 import Grid from "@material-ui/core/Grid/Grid";
 import React, {Component} from 'react';
 import './App.css';
+import history from './history'
 import {Switch, Route, BrowserRouter} from "react-router-dom";
-import Router from "react-router/es/Router";
 import WelcomePage from "./components/WelcomePage";
 import BottomBarCon from "./containers/BottomBarCon";
 import HeaderBarCon from "./containers/HeaderBarCon";
 import PeekListPanelCon from "./containers/PeekListPanelCon";
 import PlayListPanelCon from "./containers/PlayListPanelCon";
 import SidePanelCon from "./containers/SidePanelCon";
+
 
 class App extends Component {
 
@@ -35,7 +36,7 @@ class App extends Component {
     };
 
     return (
-      <BrowserRouter >
+
       <Grid container>
         <Grid item xs={12}>
           <HeaderBarCon/>
@@ -46,20 +47,19 @@ class App extends Component {
           </Grid>
           <Grid item xs={10}>
 
-
+            <Switch>
               <Route exact path={'/playlist'} component={PlayListPanelCon}/>
               <Route exact path={'/peeklist'} component={PeekListPanelCon}/>
               <Route exact path={'/'}
                      render={() => <WelcomePage text={'Log in to shuffle your playlist!'}/>}
               />
-
+            </Switch>
           </Grid>
         </Grid>
         <Grid item xs={12}>
           <BottomBarCon/>
         </Grid>
       </Grid>
-      </BrowserRouter>
     );
   }
 }

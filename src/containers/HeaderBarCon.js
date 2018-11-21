@@ -1,11 +1,6 @@
 import connect from "react-redux/es/connect/connect";
 import {
-  playNextSong,
-  playPreviousSong,
-  turnOnPlayer,
-  turnOffPlayer,
-  getPlayLists,
-  getPlaylist, login,logout
+ login,logout
 } from "../actions/actions";
 import HeaderBar from "../components/HeaderBar";
 

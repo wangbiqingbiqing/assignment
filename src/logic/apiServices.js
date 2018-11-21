@@ -32,10 +32,10 @@ export function apiGetPlayList(){
   return axios.get('/playlist')
 }
 
-export function apiGetPeekList(songId,playList,playMode){
+export function apiGetPeekList(songId){
   return axios.get('/peeklist',
     {params:{
-        listName:songId,
+        songId:songId,
       }})
 }
 
